@@ -37,7 +37,7 @@ nachgerechnet · **[OFFEN]** = nicht verifiziert.
 
 - Reproduzierbare Datenpipeline (Binance-Archiv, 16 Coins, Spot + Perps + Funding, 2017–2026) mit Qualitätsprüfung.
 - Zwei unabhängige Backtest-Wege (eigene konservative Engine + Original-Freqtrade), gegenseitig abgeglichen.
-- ≈ 268 getestete Konfigurationen in 8 Experimenten mit fester Dev/Val/Holdout-Trennung, Walk-Forward,
+- ≈ 271 getestete Konfigurationen in 9 Experimenten mit fester Dev/Val/Holdout-Trennung, Walk-Forward,
   Kostenstress, Parameter-Plateaus, Cross-Asset-Test, Bootstrap und Deflated Sharpe Ratio.
 - Neuer Kandidat **TrendEnsembleSpot4h** (Spot, Long-only) + optionale Short-Komponente
   **TrendEnsembleBearShort4h** (Futures, nur Forschung) als Freqtrade-Strategien, `lookahead-analysis` ohne Befund.

@@ -22,7 +22,7 @@ Historische Ergebnisse sind keine Gewinnzusage.
 research/
   scripts/       Download (data.binance.vision), Parquet-Cache, Export nach Freqtrade
   lib/           Daten, Indikatoren, Backtest-Engine, Kennzahlen
-  experiments/   e1 … e8 (jede Zahl im Bericht stammt aus einem dieser Skripte), charts.py
+  experiments/   e1 … e9 (jede Zahl im Bericht stammt aus einem dieser Skripte), charts.py
   results/       CSV-Ergebnisse, Freqtrade-Ausgaben, Grafiken
 freqtrade/
   user_data/strategies/   TrendEnsembleSpot4h, TrendEnsembleBearShort4h, TrendGuard1h (Original)

@@ -32,7 +32,8 @@ Historische Backtests sind **keine** Prognose und **keine** Gewinnzusage.
    Deflated Sharpe Ratio 0,83–0,91 (ordentlich, aber unter der strengen 0,95-Schwelle).
 6. **Short-Komponente** (Perp-Short nur im Bärenregime) bringt im Holdout deutlich mehr (+25 % p.a. statt +5 %),
    ist allein aber schwach (≈ 4 % p.a., Drawdown 27–40 %). Empfehlung: nur als separates Forschungs-Papertrading.
-7. **Empfehlung:** TrendEnsembleSpot4h als **zweiten, getrennten Dry-Run-Bot** starten (Anleitung in
+7. **Funding-Carry** (marktneutral) war 2020–24 attraktiv, bringt 2025–26 aber nur noch ~1–2 % p.a. – derzeit nicht lohnend.
+8. **Empfehlung:** TrendEnsembleSpot4h als **zweiten, getrennten Dry-Run-Bot** starten (Anleitung in
    `freqtrade/README.md`), TrendGuard1h unverändert weiterlaufen lassen, Ergebnisse über **Monate** vergleichen.
 
 ---
@@ -78,7 +79,7 @@ Lücke 33,5 h im Jahr 2018), **keine** inkonsistenten OHLC-Werte, Zeitstempelwec
   Perps inklusive **historischer Funding-Raten**. Kein Hebel (1x).
 - **Zwei unabhängige Implementierungen:** eigene Engine (`research/lib/engine.py`) und Original-Freqtrade 2026.10.
   Beide liefern für dieselbe Strategie nahezu identische Ergebnisse (siehe Abschnitt 6.4).
-- **Anzahl getesteter Konfigurationen:** ≈ 268 (wird in der Deflated Sharpe Ratio berücksichtigt).
+- **Anzahl getesteter Konfigurationen:** ≈ 271 (wird in der Deflated Sharpe Ratio berücksichtigt).
 
 ## 4. Diagnose TrendGuard1h (Freqtrade, 2018–2026)
 
@@ -167,6 +168,25 @@ Zusätzlich Survivorship-Bias (Universum aus heutiger Sicht). Typisches Beispiel
 
 Selbst mit optimistischen 0,05 % Kosten je Seite ist keine Variante in Validierung *und* Holdout positiv.
 ≈ 230 bis 3.600 Trades pro Jahr × 0,3 % Round-Trip-Kosten fressen jeden Brutto-Vorteil auf.
+
+### E9 – Funding-Carry: Spot-Long + Perp-Short, marktneutral (3 Varianten, `e9_carry.py`)
+
+Kapital je Coin halb in Spot, halb als Margin für einen gleich großen 1x-Perp-Short; Ertrag = erhaltenes Funding
+minus Kosten. Die Absicherung wird rebalanciert, sobald ein Bein > 2 % des Kapitals abweicht.
+
+| Variante | CAGR Dev 2020–22 | Val | Holdout | Gesamt / Max DD |
+|---|---:|---:|---:|---:|
+| immer aktiv | 7,6 % | 4,9 % | 1,5 % | 5,1 % / −2,1 % |
+| nur bei positivem 3-Tage-Funding | 5,3 % | 4,1 % | −0,9 % | 3,2 % / −3,5 % |
+
+Jahre (immer aktiv): 2020 +5,4 · 2021 +16,6 · 2022 +0,1 · 2023 +3,8 · 2024 +6,0 · 2025 +2,0 · 2026 +0,8 %.
+**Bewertung:** risikoarm im Kursverlauf, aber die Funding-Prämie ist 2025–26 auf ~1–2 % p.a. gefallen – weniger
+als eine risikofreie Anlage, bei zusätzlichem Börsen-/Gegenpartei- und Margin-Risiko. Derzeit nicht lohnend.
+
+*Transparenzhinweis:* Ein erster Lauf ohne Rebalancing zeigte unplausible +795 % für 2021. Ursache: Bei einer
+nicht rebalancierten Absicherung wächst das Nominalvolumen beider Beine mit dem Kurs (BTC ×12), das Eigenkapital
+nicht – ein verdeckter Hebel, bei dem der Short real längst liquidiert worden wäre. Korrigiert; E2–E4 sind
+nicht betroffen (nur eine Richtung je Coin bzw. bereits mit Rebalancing-Band).
 
 ## 6. Robustheit des Finalisten
 
@@ -281,7 +301,7 @@ Lesart: Über den gesamten Zyklus ist ein positiver Erwartungswert statistisch g
   mit sauberem, historisch rekonstruiertem Universum (Survivorship-frei).
 - Maker-Orders/Limit-Ausführung zur Kostensenkung (würde v. a. Rebalancing billiger machen).
 - Echte Mark-Price-Daten für Futures, Funding-basierte Filter (z. B. Shorts nur bei positivem Funding).
-- Unabhängige Renditequellen (z. B. Funding-Carry Spot-Long/Perp-Short) als zweites, unkorreliertes Modul.
+- Funding-Carry (E9) bei wieder steigenden Funding-Raten neu bewerten; weitere unkorrelierte Module suchen.
 
 ## 10. Reproduktion
 
@@ -292,7 +312,7 @@ python3 scripts/build_data.py               # Parquet-Cache + Qualitätsbericht
 cd experiments
 python3 e1_trend.py; python3 e2_longshort.py; python3 e3_ensemble.py
 python3 e4_rotation.py; python3 e5_short_tf.py; python3 e6_robust.py
-python3 e7_walkforward.py; python3 e8_longonly_robust.py; python3 charts.py
+python3 e7_walkforward.py; python3 e8_longonly_robust.py; python3 e9_carry.py; python3 charts.py
 # Freqtrade-Gegenprüfung: siehe freqtrade/README.md
 ```
 Benötigt: Python ≥ 3.11, pandas, numpy, numba, TA-Lib (`pip install ta-lib`), scipy, matplotlib, pyarrow.
