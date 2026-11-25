@@ -1,0 +1,12 @@
+# market data (re-download with research/scripts/download.sh)
+research/data/
+freqtrade/user_data/data/
+freqtrade/user_data/backtest_results/
+freqtrade/user_data/logs/
+freqtrade/user_data/*.sqlite*
+# never commit real configs with secrets
+freqtrade/user_data/config.json
+freqtrade/user_data/config.backup*.json
+**/__pycache__/
+*.pyc
+.ipynb_checkpoints/

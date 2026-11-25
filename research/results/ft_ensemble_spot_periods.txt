@@ -1,0 +1,21 @@
+=== 20180101-20230101
+│ Backtesting from                       │ 2018-03-06 20:00:00                       │
+│ Total profit %                         │ 312.10%                                   │
+│ CAGR %                                 │ 34.11%                                    │
+│ Market change                          │ 50.56%                                    │
+│ Max % of account underwater (balance)  │ 23.90%                                    │
+│ Sharpe (daily wallet balance)          │ 1.36                                      │
+=== 20230101-20250101
+│ Backtesting from                       │ 2023-01-01 00:00:00                       │
+│ Total profit %                         │ 74.02%                                    │
+│ CAGR %                                 │ 31.87%                                    │
+│ Market change                          │ 324.29%                                   │
+│ Max % of account underwater (balance)  │ 22.83%                                    │
+│ Sharpe (daily wallet balance)          │ 1.16                                      │
+=== 20250101-20261125
+│ Backtesting from                       │ 2025-01-01 00:00:00                       │
+│ Total profit %                         │ 10.18%                                    │
+│ CAGR %                                 │ 5.24%                                     │
+│ Market change                          │ -43.08%                                   │
+│ Max % of account underwater (balance)  │ 18.63%                                    │
+│ Sharpe (daily wallet balance)          │ 0.39                                      │

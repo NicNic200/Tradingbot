@@ -1,0 +1,9 @@
+,0
+n_trials,232
+sharpe_ann,1.0754843144981783
+PSR_vs_0,0.9994116657009663
+DSR,2.1999796568642098e-37
+bootstrap_cagr_hold_5/50/95_%,"(np.float64(-15.0), np.float64(19.9), np.float64(71.9))"
+PSR_hold,0.8858217271773303
+bootstrap_cagr_full_5/50/95_%,"(np.float64(9.3), np.float64(32.0), np.float64(63.3))"
+PSR_full,0.9994116657009663

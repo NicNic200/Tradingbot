@@ -1,0 +1,20 @@
+# Second, fully separate dry-run bot for TrendEnsembleSpot4h.
+# Does NOT touch the running TrendGuard1h bot: own compose project, own container name, own DB, own host port.
+# Start (on the server, in ~/trading-bot):
+#   sudo docker compose -f docker-compose.ensemble.yml -p ensemble up -d
+# FreqUI via SSH tunnel:  ssh -L 8081:127.0.0.1:8081 nicnic@<server>  ->  http://localhost:8081
+services:
+  freqtrade-ensemble:
+    image: freqtradeorg/freqtrade:stable
+    restart: unless-stopped
+    container_name: freqtrade-ensemble
+    volumes:
+      - "./user_data:/freqtrade/user_data"
+    ports:
+      - "127.0.0.1:8081:8080"
+    command: >
+      trade
+      --logfile /freqtrade/user_data/logs/freqtrade-ensemble.log
+      --db-url sqlite:////freqtrade/user_data/tradesv3.ensemble.paper.sqlite
+      --config /freqtrade/user_data/config.ensemble.paper.json
+      --strategy TrendEnsembleSpot4h

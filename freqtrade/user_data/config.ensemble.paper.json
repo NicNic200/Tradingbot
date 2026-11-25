@@ -1,0 +1,78 @@
+{
+  "$comment": "SEPARATE dry-run bot for TrendEnsembleSpot4h. Contains NO secrets: fill in api_server password/jwt and (optional) a SECOND telegram bot on the server only. Never set dry_run=false.",
+  "max_open_trades": 2,
+  "stake_currency": "USDT",
+  "stake_amount": "unlimited",
+  "tradable_balance_ratio": 0.99,
+  "fiat_display_currency": "EUR",
+  "dry_run": true,
+  "dry_run_wallet": 1000,
+  "cancel_open_orders_on_exit": false,
+  "trading_mode": "spot",
+  "margin_mode": "",
+  "unfilledtimeout": {
+    "entry": 10,
+    "exit": 10,
+    "exit_timeout_count": 0,
+    "unit": "minutes"
+  },
+  "entry_pricing": {
+    "price_side": "other",
+    "use_order_book": false,
+    "order_book_top": 1,
+    "price_last_balance": 0.0,
+    "check_depth_of_market": {
+      "enabled": false,
+      "bids_to_ask_delta": 1
+    }
+  },
+  "exit_pricing": {
+    "price_side": "other",
+    "use_order_book": false,
+    "order_book_top": 1
+  },
+  "exchange": {
+    "name": "binance",
+    "key": "",
+    "secret": "",
+    "ccxt_config": {},
+    "ccxt_async_config": {},
+    "pair_whitelist": [
+      "BTC/USDT",
+      "ETH/USDT"
+    ],
+    "pair_blacklist": []
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "telegram": {
+    "enabled": false,
+    "token": "SET_ON_SERVER_ONLY_SECOND_BOT_TOKEN",
+    "chat_id": "SET_ON_SERVER_ONLY"
+  },
+  "bot_name": "ensemble-paper",
+  "initial_state": "running",
+  "force_entry_enable": false,
+  "internals": {
+    "process_throttle_secs": 5
+  },
+  "dataformat_ohlcv": "feather",
+  "strategy": "TrendEnsembleSpot4h",
+  "timeframe": "4h",
+  "db_url": "sqlite:////freqtrade/user_data/tradesv3.ensemble.paper.sqlite",
+  "api_server": {
+    "enabled": true,
+    "listen_ip_address": "0.0.0.0",
+    "listen_port": 8080,
+    "verbosity": "error",
+    "enable_openapi": false,
+    "jwt_secret_key": "CHANGE_ME_ON_SERVER_random_64_chars",
+    "ws_token": "CHANGE_ME_ON_SERVER",
+    "CORS_origins": [],
+    "username": "CHANGE_ME",
+    "password": "CHANGE_ME"
+  }
+}
